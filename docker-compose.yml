@@ -1,0 +1,87 @@
+﻿name: leeve-dev
+services:
+  db:
+    hostname: db
+    image: mongo
+    expose:
+      - 27017
+    ports:
+      - 20050:27017
+    volumes:
+      - data:/data/db
+    networks:
+      leeve_net:
+        ipv4_address: 20.0.1.1
+    restart: always
+    command: mongod --replSet leeve-set --bind_ip 20.0.1.1
+  db-init:
+    image: mongo
+    restart: 'no'
+    depends_on:
+      - db
+    networks:
+      leeve_net:
+        ipv4_address: 20.0.1.2
+    command: >
+      mongosh --host db:27017 --eval
+      '
+      db = (new Mongo("20.0.1.1:27017")).getDB("admin");
+      config = {
+      "_id" : "leeve-set",
+      "members" : [
+        {
+          "_id" : 0,
+          "host" : "db:27017"
+        }
+      ]
+      };
+      rs.initiate(config);
+      '
+  db-test:
+    hostname: db-test
+    image: mongo
+    expose:
+      - 27017
+    ports:
+      - 20051:27017
+    volumes:
+      - test-data:/data/db
+    networks:
+      leeve_net:
+        ipv4_address: 20.0.1.3
+    restart: always
+    command: mongod --replSet leeve-set --bind_ip 20.0.1.3
+  test-init:
+    image: mongo
+    restart: 'no'
+    depends_on:
+      - db-test
+    networks:
+      leeve_net:
+        ipv4_address: 20.0.1.4
+    command: >
+      mongosh --host db-test:27017 --eval
+      '
+      db = (new Mongo("20.0.1.3:27017")).getDB("admin");
+      config = {
+      "_id" : "leeve-set",
+      "members" : [
+        {
+          "_id" : 0,
+          "host" : "db-test:27017"
+        }
+      ]
+      };
+      rs.initiate(config);
+      '
+volumes:
+  data:
+  test-data:
+
+networks:
+  leeve_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 20.0.1.0/24
+          gateway: 20.0.1.254

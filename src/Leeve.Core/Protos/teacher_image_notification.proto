@@ -1,0 +1,18 @@
+﻿syntax = "proto3";
+
+package teacher_image_notification;
+option csharp_namespace = "Leeve.Core";
+
+import "teacher_image.proto";
+
+message TeacherImageNotificationRequest {
+}
+
+message TeacherImageNotificationResponse {
+  string caller_id = 1;
+  teacher_image.TeacherImageDto teacher_image = 2;
+}
+
+service TeacherImageNotificationService {
+  rpc Subscribe(TeacherImageNotificationRequest) returns (stream TeacherImageNotificationResponse);
+}

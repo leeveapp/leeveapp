@@ -1,0 +1,140 @@
+﻿<ctrl:Window
+    x:Class="Leeve.Wpf.Main.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ctrl="http://debitexpress.com/winfx/xaml/controls"
+    xmlns:attached="http://debitexpress.com/winfx/xaml/attached-properties"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mainViewModel="clr-namespace:Leeve.Application.Main;assembly=Leeve.Application"
+    xmlns:userViewModel="clr-namespace:Leeve.Wpf.Users"
+    xmlns:mainView="clr-namespace:Leeve.Wpf.Main"
+    mc:Ignorable="d"
+    d:DataContext="{d:DesignInstance mainViewModel:MainViewModel}"
+    TextElement.FontSize="13"
+    TextElement.FontFamily="{StaticResource MaterialDesignFont}"
+    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+    Width="1024"
+    Height="768"
+    DialogOverlay="Both"
+    UseLayoutRounding="True"
+    SnapsToDevicePixels="True"
+    Title="Le'eve: Manage learning evaluations with ease"
+    ShowTitle="{Binding ShowBack, Converter={StaticResource InverseBooleanConverter}}"
+    Background="{DynamicResource MaterialDesignPaper}"
+    attached:WindowElement.SaveWindowPosition="True"
+    attached:WindowElement.ExtendContentToNonClientArea="True">
+    <ctrl:Window.TopmostContent>
+        <ctrl:SimplePanel>
+            <materialDesign:Snackbar
+                x:Name="ErrorSnackBar"
+                Margin="10"
+                Background="#F03F2B"
+                ActionButtonPlacement="Inline"
+                HorizontalAlignment="Right"
+                Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"
+                ActionButtonStyle="{StaticResource ErrorSnackBarButtonStyle}" />
+            <materialDesign:Snackbar
+                x:Name="SnackBar"
+                Margin="10"
+                ActionButtonPlacement="Inline"
+                HorizontalAlignment="Right"
+                ActionButtonStyle="{StaticResource SnackBarButtonStyle}" />
+        </ctrl:SimplePanel>
+    </ctrl:Window.TopmostContent>
+    <ctrl:Window.NonClientAreaContent>
+        <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+            <userViewModel:TeacherInfoControl
+                IsTabStop="False"
+                DataContext="{Binding TeacherInfo}"
+                Visibility="{Binding DataContext.ShowUserInfo, 
+                    RelativeSource={RelativeSource AncestorType={x:Type mainView:MainWindow}, Mode=FindAncestor},  
+                    Converter={StaticResource BooleanToVisibilityConverter}}" />
+            <Button
+                Width="46"
+                Height="29"
+                Padding="0"
+                Margin="0,0,5,0"
+                IsTabStop="False"
+                Focusable="False"
+                Style="{StaticResource MaterialDesignTitleBarButton}"
+                Command="{Binding OpenAdminSettingsSelectionCommand}"
+                Visibility="{Binding ShowAdminSettings, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <materialDesign:PackIcon
+                    Opacity="0.75"
+                    Width="20"
+                    Height="20"
+                    Kind="SettingsOutline"
+                    HorizontalAlignment="Center" />
+            </Button>
+            <ToggleButton
+                Width="46"
+                Height="29"
+                Margin="0,0,5,0"
+                IsTabStop="False"
+                Style="{StaticResource MaterialDesignTitleBarButton}"
+                Command="{Binding MainPage.SwitchThemeCommand}">
+                <ctrl:SimplePanel>
+                    <Path
+                        Visibility="{Binding MainPage.DarkTheme, Converter={StaticResource BooleanToInverseVisibilityConverter}}"
+                        Fill="{Binding Foreground, RelativeSource={RelativeSource AncestorType={x:Type ButtonBase}}}"
+                        Stretch="Uniform"
+                        SnapsToDevicePixels="True"
+                        Width="15"
+                        Height="15"
+                        Data="{StaticResource SunGeometry}" />
+                    <Path
+                        Visibility="{Binding MainPage.DarkTheme, Converter={StaticResource BooleanToVisibilityConverter}}"
+                        Fill="{Binding Foreground, RelativeSource={RelativeSource AncestorType={x:Type ButtonBase}}}"
+                        Stretch="Uniform"
+                        SnapsToDevicePixels="True"
+                        Width="15"
+                        Height="15"
+                        Data="{StaticResource MoonGeometry}" />
+                </ctrl:SimplePanel>
+            </ToggleButton>
+        </StackPanel>
+    </ctrl:Window.NonClientAreaContent>
+    <ctrl:Window.IconContent>
+        <Grid Background="Transparent">
+            <Button
+                DockPanel.Dock="Top"
+                TabIndex="0"
+                Height="50"
+                Width="44"
+                Margin="8,5"
+                Padding="0"
+                Foreground="{DynamicResource MaterialDesignBody}"
+                materialDesign:ButtonAssist.CornerRadius="7"
+                materialDesign:RippleAssist.Feedback="{DynamicResource MaterialDesignBody}"
+                Style="{StaticResource MaterialDesignFlatButton}"
+                Visibility="{Binding ShowBack, Converter={StaticResource BooleanToVisibilityConverter}}"
+                Command="{Binding MainPage.BackCommand}">
+                <StackPanel
+                    Opacity="0.75"
+                    VerticalAlignment="Center">
+                    <materialDesign:PackIcon
+                        Width="21"
+                        Height="21"
+                        Kind="ArrowBack"
+                        HorizontalAlignment="Center" />
+                </StackPanel>
+            </Button>
+            <Image
+                Margin="7,5,0,5"
+                Width="20"
+                Height="20"
+                attached:WindowElement.ShowSystemMenuOnRightClick="True"
+                Visibility="{Binding ShowBack, Converter={StaticResource BooleanToInverseVisibilityConverter}}">
+                <Image.Source>
+                    <BitmapImage
+                        DecodePixelHeight="50"
+                        DecodePixelWidth="50"
+                        UriSource="pack://application:,,,/../../assets/favicon.png" />
+                </Image.Source>
+            </Image>
+        </Grid>
+    </ctrl:Window.IconContent>
+    <ContentPresenter FocusVisualStyle="{x:Null}" Content="{Binding Page}" />
+</ctrl:Window>

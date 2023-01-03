@@ -1,0 +1,173 @@
+﻿<UserControl
+    x:Class="Leeve.Wpf.Users.TeacherInfoControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:ctrl="http://debitexpress.com/winfx/xaml/controls"
+    xmlns:view="clr-namespace:Leeve.Client.Users;assembly=Leeve.Client"
+    xmlns:viewModel="clr-namespace:Leeve.Application.Users;assembly=Leeve.Application"
+    mc:Ignorable="d"
+    d:DataContext="{d:DesignInstance viewModel:TeacherInfoViewModel}">
+    <materialDesign:PopupBox
+        PopupHorizontalOffset="-5"
+        Style="{StaticResource MaterialDesignPopupBox}">
+        <materialDesign:PopupBox.ToggleContent>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBlock
+                    Grid.Column="0"
+                    Margin="0,0,10,0"
+                    MinWidth="75"
+                    TextAlignment="Center"
+                    VerticalAlignment="Center"
+                    TextTrimming="CharacterEllipsis"
+                    Foreground="{DynamicResource MaterialDesignBody}"
+                    Text="{Binding Path=(view:TeacherAssist.FullName), Mode=OneWay}" />
+                <Ellipse
+                    Grid.Column="1"
+                    Width="20"
+                    Height="20"
+                    StrokeThickness="0.75"
+                    Stroke="{DynamicResource MaterialDesignDivider}">
+                    <Ellipse.Fill>
+                        <ImageBrush
+                            ImageSource="pack://application:,,,/../../assets/images/user.png" />
+                    </Ellipse.Fill>
+                </Ellipse>
+                <Ellipse
+                    Grid.Column="1"
+                    Width="20"
+                    Height="20"
+                    StrokeThickness="0.75"
+                    Stroke="{DynamicResource MaterialDesignDivider}">
+                    <Ellipse.Fill>
+                        <ImageBrush
+                            ImageSource="{Binding Path=(view:TeacherAssist.Image), Converter={StaticResource ByteArrayToImageConverter}, ConverterParameter='20,20'}" />
+                    </Ellipse.Fill>
+                </Ellipse>
+            </Grid>
+        </materialDesign:PopupBox.ToggleContent>
+        <materialDesign:PopupBox.PopupContent>
+            <StackPanel>
+                <Grid Margin="20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Ellipse
+                        Grid.Column="0"
+                        Width="100"
+                        Height="100"
+                        StrokeThickness="2"
+                        Stroke="{DynamicResource MaterialDesignDivider}">
+                        <Ellipse.Fill>
+                            <ImageBrush
+                                ImageSource="pack://application:,,,/../../assets/images/user.png" />
+                        </Ellipse.Fill>
+                    </Ellipse>
+                    <Ellipse
+                        Grid.Column="0"
+                        Width="100"
+                        Height="100"
+                        StrokeThickness="2"
+                        Stroke="{DynamicResource MaterialDesignDivider}">
+                        <Ellipse.Fill>
+                            <ImageBrush
+                                ImageSource="{Binding Path=(view:TeacherAssist.Image), Converter={StaticResource ByteArrayToImageConverter}, ConverterParameter='100,100'}" />
+                        </Ellipse.Fill>
+                    </Ellipse>
+                    <StackPanel
+                        Grid.Column="1"
+                        Margin="10,20,0,0">
+                        <TextBlock
+                            FontWeight="Medium"
+                            FontSize="18"
+                            TextWrapping="Wrap"
+                            Text="{Binding Path=(view:TeacherAssist.FullName), Mode=OneWay}" />
+                        <TextBlock Text="{Binding Path=(view:TeacherAssist.Department), Mode=OneWay}" />
+                    </StackPanel>
+                </Grid>
+                <ctrl:SimplePanel>
+                    <Border Background="{StaticResource PrimaryHueMidBrush}"
+                            CornerRadius="{Binding PopupUniformCornerRadius, 
+                                Converter={StaticResource UniformRadiusToBottomOnlyConverter},
+                                RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type materialDesign:PopupBox}}}" />
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Grid.Resources>
+                            <Style TargetType="{x:Type Button}" BasedOn="{StaticResource MaterialDesignFlatButton}">
+                                <Setter Property="Margin" Value="5,0" />
+                                <Setter Property="Padding" Value="15,0" />
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                                <Setter Property="Foreground" Value="{StaticResource PrimaryHueMidForegroundBrush}" />
+                                <Setter Property="materialDesign:RippleAssist.Feedback"
+                                        Value="{StaticResource PrimaryHueMidForegroundBrush}" />
+                                <Setter Property="materialDesign:RippleAssist.RippleSizeMultiplier" Value="0.60" />
+                            </Style>
+                        </Grid.Resources>
+                        <StackPanel
+                            Grid.Column="0"
+                            Margin="10"
+                            Orientation="Horizontal">
+                            <Button
+                                Margin="0"
+                                ToolTip="Edit Info"
+                                Command="{Binding UpdateUserInfoCommand}">
+                                <materialDesign:PackIcon
+                                    DockPanel.Dock="Left"
+                                    Kind="UserEdit"
+                                    Width="20"
+                                    Height="20"
+                                    Opacity="0.75"
+                                    VerticalAlignment="Center" />
+                            </Button>
+                            <Button
+                                ToolTip="Update Credentials"
+                                Command="{Binding ChangePasswordCommand}">
+                                <materialDesign:PackIcon
+                                    DockPanel.Dock="Left"
+                                    Kind="ShieldKey"
+                                    Width="20"
+                                    Height="20"
+                                    Opacity="0.75"
+                                    VerticalAlignment="Center" />
+                            </Button>
+                            <Button
+                                ToolTip="Change Photo"
+                                Command="{Binding ChangePhotoCommand}">
+                                <materialDesign:PackIcon
+                                    DockPanel.Dock="Left"
+                                    Kind="Camera"
+                                    Width="20"
+                                    Height="20"
+                                    Opacity="0.75"
+                                    VerticalAlignment="Center" />
+                            </Button>
+                        </StackPanel>
+                        <Button
+                            Grid.Column="1"
+                            ToolTip="Logout"
+                            Margin="10,0"
+                            Command="{Binding LogoutCommand}"
+                            HorizontalAlignment="Right">
+                            <materialDesign:PackIcon
+                                Width="20"
+                                Height="20"
+                                Kind="Logout"
+                                Opacity="0.75"
+                                HorizontalAlignment="Center" />
+                        </Button>
+                    </Grid>
+                </ctrl:SimplePanel>
+            </StackPanel>
+        </materialDesign:PopupBox.PopupContent>
+    </materialDesign:PopupBox>
+</UserControl>

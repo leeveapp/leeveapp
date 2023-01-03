@@ -1,0 +1,19 @@
+﻿syntax = "proto3";
+
+package questionnaire_notification;
+option csharp_namespace = "Leeve.Core";
+
+import "questionnaire.proto";
+
+message QuestionnaireNotificationRequest {
+}
+
+message QuestionnaireNotificationResponse {
+  string caller_id = 1;
+  string action = 2;
+  questionnaire.QuestionnaireDto questionnaire =3;
+}
+
+service QuestionnaireNotificationService {
+  rpc Subscribe(QuestionnaireNotificationRequest) returns (stream QuestionnaireNotificationResponse);
+}

@@ -1,0 +1,49 @@
+﻿<UserControl
+    x:Class="Leeve.Wpf.Evaluations.ReadOnlyQuestionView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:viewModel="clr-namespace:Leeve.Application.Questionnaires;assembly=Leeve.Application"
+    mc:Ignorable="d"
+    d:DataContext="{d:DesignInstance viewModel:QuestionViewModel}">
+    <Grid>
+        <Border Style="{StaticResource OutlinedBorder}" />
+        <StackPanel
+            Margin="20,25">
+            <TextBlock
+                Margin="0,0,0,10"
+                FontSize="20"
+                TextWrapping="Wrap"
+                Text="{Binding Title}" />
+            <ItemsControl
+                VirtualizingPanel.CacheLengthUnit="Item"
+                VirtualizingPanel.ScrollUnit="Pixel"
+                VirtualizingPanel.VirtualizationMode="Recycling"
+                VirtualizingPanel.IsVirtualizingWhenGrouping="True"
+                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                HorizontalContentAlignment="Stretch"
+                ItemsSource="{Binding Answers, IsAsync=True}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel IsVirtualizing="True" VirtualizationMode="Recycling" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <ContentControl Style="{StaticResource FadeIn}">
+                            <RadioButton
+                                Margin="10,5"
+                                Cursor="Hand"
+                                HorizontalAlignment="Left"
+                                GroupName="{Binding Group}"
+                                IsChecked="{Binding Selected}">
+                                <TextBlock Text="{Binding Title}" TextWrapping="Wrap" />
+                            </RadioButton>
+                        </ContentControl>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+    </Grid>
+</UserControl>

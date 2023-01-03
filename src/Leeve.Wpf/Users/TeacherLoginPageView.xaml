@@ -1,0 +1,137 @@
+﻿<UserControl
+    x:Class="Leeve.Wpf.Users.TeacherLoginPageView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:attached="http://debitexpress.com/winfx/xaml/attached-properties"
+    xmlns:ctrl="http://debitexpress.com/winfx/xaml/controls"
+    xmlns:viewModel="clr-namespace:Leeve.Application.Users;assembly=Leeve.Application"
+    FocusVisualStyle="{x:Null}"
+    mc:Ignorable="d"
+    d:DataContext="{d:DesignInstance viewModel:TeacherLoginPageViewModel}">
+    <UserControl.InputBindings>
+        <KeyBinding
+            Key="Enter"
+            Command="{Binding LoginCommand}" />
+    </UserControl.InputBindings>
+    <ctrl:FadingScrollViewer
+        Margin="2,40,2,2"
+        FadedEdgeThickness="50"
+        HorizontalScrollBarVisibility="Auto"
+        attached:ScrollViewerElement.UseHorizontalScrolling="True"
+        materialDesign:ScrollViewerAssist.CornerRectangleVisibility="Collapsed">
+        <Grid
+            Width="500"
+            Height="400"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Center">
+            <materialDesign:Card materialDesign:UniformCornerRadius="9" />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition
+                        Width="Auto" />
+                    <ColumnDefinition
+                        Width="*" />
+                </Grid.ColumnDefinitions>
+                <Border
+                    Width="200"
+                    CornerRadius="9,0,0,9"
+                    Grid.Column="0">
+                    <Border.Background>
+                        <LinearGradientBrush
+                            EndPoint="0.136,0.093"
+                            StartPoint="1.13,2.432">
+                            <GradientStop
+                                Color="{StaticResource PrimaryHueMidColor}"
+                                Offset="0.974" />
+                            <GradientStop
+                                Color="{StaticResource PrimaryHueLightColor}"
+                                Offset="0.022" />
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    <ContentControl
+                        Margin="0,20"
+                        Width="100"
+                        Opacity="0.75"
+                        Focusable="False"
+                        FocusVisualStyle="{x:Null}"
+                        VerticalAlignment="Bottom"
+                        Template="{StaticResource Logo}"
+                        Foreground="{StaticResource LightBrush}" />
+                </Border>
+                <Button
+                    Grid.Column="0"
+                    Height="40"
+                    Width="45"
+                    Margin="5"
+                    Padding="0"
+                    VerticalAlignment="Top"
+                    HorizontalAlignment="Left"
+                    Foreground="WhiteSmoke"
+                    materialDesign:ButtonAssist.CornerRadius="7"
+                    materialDesign:RippleAssist.Feedback="WhiteSmoke"
+                    Style="{StaticResource MaterialDesignFlatButton}"
+                    Command="{Binding BackCommand}">
+                    <StackPanel
+                        Opacity="0.75"
+                        VerticalAlignment="Center">
+                        <materialDesign:PackIcon
+                            Width="21"
+                            Height="21"
+                            Kind="ArrowBack"
+                            Foreground="WhiteSmoke"
+                            HorizontalAlignment="Center" />
+                    </StackPanel>
+                </Button>
+                <StackPanel
+                    Grid.Column="1"
+                    Margin="40,0"
+                    VerticalAlignment="Center">
+                    <materialDesign:PackIcon
+                        Width="60"
+                        Height="60"
+                        Kind="AccountCircle"
+                        Margin="0,0,10,0"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        Foreground="{DynamicResource PrimaryHueMidBrush}" />
+                    <DockPanel
+                        Margin="0,10">
+                        <materialDesign:PackIcon
+                            Kind="User"
+                            Margin="0,0,5,5"
+                            VerticalAlignment="Bottom"
+                            Foreground="{Binding ElementName=UserBox, Path=BorderBrush}" />
+                        <TextBox
+                            x:Name="UserBox"
+                            materialDesign:HintAssist.Hint="Username"
+                            attached:UIElement.FocusOnLoad="True"
+                            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                            Text="{Binding Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged }" />
+                    </DockPanel>
+                    <DockPanel
+                        Margin="0,0,0,50">
+                        <materialDesign:PackIcon
+                            Kind="Key"
+                            Margin="0,0,5,5"
+                            VerticalAlignment="Bottom"
+                            Foreground="{Binding ElementName=PasswordBox, Path=BorderBrush}" />
+                        <PasswordBox
+                            x:Name="PasswordBox"
+                            materialDesign:HintAssist.Hint="Password"
+                            attached:PasswordBoxElement.BindPassword="True"
+                            attached:PasswordBoxElement.BoundPassword="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" />
+                    </DockPanel>
+                    <Button
+                        Content="LOGIN"
+                        materialDesign:ButtonAssist.CornerRadius="16"
+                        Command="{Binding LoginCommand}"
+                        Style="{StaticResource MaterialDesignFlatMidBgButton}" />
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </ctrl:FadingScrollViewer>
+</UserControl>

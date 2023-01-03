@@ -1,0 +1,143 @@
+﻿<UserControl
+    x:Class="Leeve.Wpf.Users.TeacherMainPageView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:themes="clr-namespace:Leeve.Wpf.Themes"
+    xmlns:ctrl="http://debitexpress.com/winfx/xaml/controls"
+    xmlns:dialogs="http://debitexpress.com/winfx/xaml/dialogs"
+    xmlns:viewModel="clr-namespace:Leeve.Application.Users;assembly=Leeve.Application"
+    mc:Ignorable="d"
+    d:DataContext="{d:DesignInstance viewModel:TeacherMainPageViewModel}">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="60" />
+            <ColumnDefinition Width="5" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <ContentPresenter
+            Grid.Column="1"
+            Grid.ColumnSpan="2"
+            Focusable="False"
+            FocusVisualStyle="{x:Null}"
+            Validation.ErrorTemplate="{x:Null}"
+            Content="{Binding Page}" />
+        <materialDesign:Card
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            Margin="0,0,5,0"
+            UniformCornerRadius="0"
+            materialDesign:ElevationAssist.Elevation="Dp3"
+            materialDesign:ShadowAssist.ShadowEdges="Right" />
+        <dialogs:DialogHubContainer
+            Grid.Column="1"
+            Grid.ColumnSpan="2"
+            Identifier="page-loading">
+            <dialogs:DialogHubContainer.Resources>
+                <Style TargetType="{x:Type dialogs:DialogHub}" BasedOn="{StaticResource EmbeddedDialogHub}">
+                    <Setter Property="OverlayBackground" Value="{DynamicResource MaterialDesignPaper}" />
+                </Style>
+            </dialogs:DialogHubContainer.Resources>
+        </dialogs:DialogHubContainer>
+        <ListBox
+            Grid.Column="0"
+            VirtualizingPanel.CacheLengthUnit="Item"
+            VirtualizingPanel.ScrollUnit="Pixel"
+            VirtualizingPanel.VirtualizationMode="Recycling"
+            VirtualizingPanel.IsVirtualizingWhenGrouping="True"
+            ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+            SelectionMode="Single"
+            TabIndex="1"
+            Margin="0,60,0,0"
+            Background="Transparent"
+            HorizontalContentAlignment="Center"
+            SelectedIndex="{Binding PageIndex}">
+            <ListBox.Template>
+                <ControlTemplate>
+                    <ctrl:FadingScrollViewer
+                        x:Name="ScrollViewer"
+                        FadedEdgeThickness="40"
+                        Padding="{TemplateBinding Padding}">
+                        <ItemsPresenter />
+                    </ctrl:FadingScrollViewer>
+                </ControlTemplate>
+            </ListBox.Template>
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource NavigationButtonStyle}">
+                    <Setter Property="Height" Value="60" />
+                </Style>
+            </ListBox.ItemContainerStyle>
+            <ListBoxItem
+                ToolTip="Home"
+                themes:ButtonAssist.Command="{Binding SwitchPageCommand}"
+                themes:ButtonAssist.CommandParameter="{x:Static viewModel:PageGroup.Home}">
+                <StackPanel VerticalAlignment="Center">
+                    <Grid Margin="0,2">
+                        <materialDesign:PackIcon
+                            HorizontalAlignment="Center"
+                            Kind="HomeOutline"
+                            Width="24"
+                            Height="24"
+                            Visibility="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}, Converter={StaticResource BooleanToInverseVisibilityConverter}}"
+                            Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}" />
+                        <materialDesign:PackIcon
+                            HorizontalAlignment="Center"
+                            Kind="Home"
+                            Width="24"
+                            Height="24"
+                            Visibility="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}, Converter={StaticResource BooleanToVisibilityConverter}}"
+                            Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}" />
+                    </Grid>
+                </StackPanel>
+            </ListBoxItem>
+            <ListBoxItem
+                ToolTip="Questionnaires"
+                themes:ButtonAssist.Command="{Binding SwitchPageCommand}"
+                themes:ButtonAssist.CommandParameter="{x:Static viewModel:PageGroup.Questionnaires}">
+                <StackPanel VerticalAlignment="Center">
+                    <Grid Margin="0,2">
+                        <materialDesign:PackIcon
+                            HorizontalAlignment="Center"
+                            Kind="QuestionMarkCircleOutline"
+                            Width="24"
+                            Height="24"
+                            Visibility="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}, Converter={StaticResource BooleanToInverseVisibilityConverter}}"
+                            Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}" />
+                        <materialDesign:PackIcon
+                            HorizontalAlignment="Center"
+                            Kind="QuestionMarkCircle"
+                            Width="24"
+                            Height="24"
+                            Visibility="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}, Converter={StaticResource BooleanToVisibilityConverter}}"
+                            Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}" />
+                    </Grid>
+                </StackPanel>
+            </ListBoxItem>
+            <ListBoxItem
+                ToolTip="Evaluations"
+                themes:ButtonAssist.Command="{Binding SwitchPageCommand}"
+                themes:ButtonAssist.CommandParameter="{x:Static viewModel:PageGroup.Evaluation}">
+                <StackPanel VerticalAlignment="Center">
+                    <Grid Margin="0,2">
+                        <materialDesign:PackIcon
+                            HorizontalAlignment="Center"
+                            Kind="FormOutline"
+                            Width="24"
+                            Height="24"
+                            Visibility="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}, Converter={StaticResource BooleanToInverseVisibilityConverter}}"
+                            Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}" />
+                        <materialDesign:PackIcon
+                            HorizontalAlignment="Center"
+                            Kind="Form"
+                            Width="24"
+                            Height="24"
+                            Visibility="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}, Converter={StaticResource BooleanToVisibilityConverter}}"
+                            Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}" />
+                    </Grid>
+                </StackPanel>
+            </ListBoxItem>
+        </ListBox>
+    </Grid>
+</UserControl>

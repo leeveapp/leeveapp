@@ -1,0 +1,121 @@
+﻿syntax = "proto3";
+
+package evaluation;
+option csharp_namespace = "Leeve.Core";
+
+import "questionnaire.proto";
+import "google/protobuf/timestamp.proto";
+
+message EvaluationDto{
+  string id = 1;
+  string teacher_id = 2;
+  string title = 3;
+  string description = 4;
+  google.protobuf.Timestamp created_on = 5;
+  questionnaire.QuestionnaireDto questionnaire = 6;
+  bool is_active = 7;
+  string code = 8;
+  int32 responses = 9;
+}
+
+message AddEvaluationRequest {
+  string caller_id = 1;
+  EvaluationDto evaluation = 2;
+}
+
+message AddEvaluationResponse {
+  EvaluationDto evaluation = 1;
+}
+
+message GetEvaluationRequest {
+  string id = 2;
+}
+
+message GetEvaluationResponse {
+  EvaluationDto evaluation = 1;
+}
+
+message GetAllEvaluationsByTeacherIdRequest {
+  string teacher_id = 1;
+}
+
+message GetAllEvaluationsByTeacherIdResponse {
+  EvaluationDto evaluation = 1;
+}
+
+message UpdateEvaluationRequest {
+  string caller_id = 1;
+  string evaluation_id = 2;
+  string title = 3;
+  string description = 4;
+}
+
+message UpdateEvaluationResponse {
+  EvaluationDto evaluation = 1;
+}
+
+message DeleteEvaluationRequest {
+  string caller_id = 1;
+  string id = 2;
+  string teacher_id = 3;
+}
+
+message DeleteEvaluationResponse {
+  EvaluationDto evaluation = 1;
+}
+
+message StartEvaluationRequest {
+  string caller_id = 1;
+  string evaluation_id = 2;
+}
+
+message StartEvaluationResponse {
+  string evaluation_id = 1;
+  string code = 2;
+}
+
+message StopEvaluationRequest {
+  string caller_id = 1;
+  string evaluation_id = 2;
+}
+
+message StopEvaluationResponse {
+  string evaluation_id = 1;
+}
+
+message EvaluateRequest {
+  string code = 1;
+}
+
+message EvaluateResponse {
+  EvaluationDto evaluation = 1;
+}
+
+message SubmitEvaluationRequest {
+  string caller_id = 1;
+  EvaluationDto evaluation = 2;
+}
+
+message SubmitEvaluationResponse {
+}
+
+message GetEvaluationResultsRequest {
+  string evaluation_id = 1;
+}
+
+message GetEvaluationResultsResponse {
+  EvaluationDto evaluation = 1;
+}
+
+service EvaluationService {
+  rpc Add(AddEvaluationRequest) returns (AddEvaluationResponse);
+  rpc Get(GetEvaluationRequest) returns (GetEvaluationResponse);
+  rpc GetAllByTeacherId(GetAllEvaluationsByTeacherIdRequest) returns (stream GetAllEvaluationsByTeacherIdResponse);
+  rpc Update(UpdateEvaluationRequest) returns (UpdateEvaluationResponse);
+  rpc Delete(DeleteEvaluationRequest) returns (DeleteEvaluationResponse);
+  rpc Start(StartEvaluationRequest) returns (StartEvaluationResponse);
+  rpc Stop(StopEvaluationRequest) returns (StopEvaluationResponse);
+  rpc Evaluate(EvaluateRequest) returns (EvaluateResponse);
+  rpc Submit(SubmitEvaluationRequest) returns (SubmitEvaluationResponse);
+  rpc GetResults(GetEvaluationResultsRequest) returns (stream GetEvaluationResultsResponse);
+}

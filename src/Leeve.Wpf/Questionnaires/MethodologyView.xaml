@@ -1,0 +1,95 @@
+<UserControl
+    x:Class="Leeve.Wpf.Questionnaires.MethodologyView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:viewModel="clr-namespace:Leeve.Application.Questionnaires;assembly=Leeve.Application"
+    xmlns:view="clr-namespace:Leeve.Wpf.Questionnaires"
+    mc:Ignorable="d"
+    d:DataContext="{d:DesignInstance viewModel:MethodologyViewModel}">
+    <Grid>
+        <materialDesign:Card materialDesign:ElevationAssist.Elevation="Dp2" Margin="5" />
+        <Button
+            Width="30"
+            Margin="15"
+            VerticalAlignment="Top"
+            HorizontalAlignment="Right"
+            Focusable="False"
+            FocusVisualStyle="{x:Null}"
+            Command="{Binding DeleteMethodologyCommand}"
+            CommandParameter="{Binding}"
+            Foreground="{DynamicResource MaterialDesignBody}"
+            Style="{StaticResource MaterialDesignToolButton}">
+            <materialDesign:PackIcon
+                Kind="Close"
+                Width="20"
+                Height="20"
+                Opacity="0.60" />
+        </Button>
+        <ContentControl>
+            <Grid Margin="35">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <StackPanel
+                    Grid.Row="0"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right">
+                    <Button
+                        Margin="0,0,10,0"
+                        Content="New Methodology"
+                        Command="{Binding AddMethodologyCommand}"
+                        CommandParameter="{Binding}"
+                        Style="{StaticResource MaterialDesignOutlinedButton}" />
+                    <Button
+                        Margin="0,0,40,0"
+                        Content="New Question"
+                        Command="{Binding AddCommand}"
+                        Style="{StaticResource MaterialDesignOutlinedButton}" />
+                </StackPanel>
+                <StackPanel
+                    Grid.Row="1"
+                    Margin="0,10,0,20">
+                    <TextBox
+                        FontSize="21"
+                        TextWrapping="Wrap"
+                        BorderThickness="0"
+                        materialDesign:HintAssist.Hint="Methodology"
+                        Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox
+                        FontSize="17"
+                        BorderThickness="0"
+                        TextWrapping="Wrap"
+                        materialDesign:HintAssist.Hint="Description"
+                        Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}" />
+                </StackPanel>
+                <ItemsControl
+                    Grid.Row="2"
+                    VirtualizingPanel.CacheLengthUnit="Item"
+                    VirtualizingPanel.ScrollUnit="Pixel"
+                    VirtualizingPanel.VirtualizationMode="Recycling"
+                    VirtualizingPanel.IsVirtualizingWhenGrouping="True"
+                    ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                    HorizontalContentAlignment="Stretch"
+                    ItemsSource="{Binding Questions, IsAsync=True}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel IsVirtualizing="True" VirtualizationMode="Recycling" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <ContentControl Style="{StaticResource FadeIn}">
+                                <view:QuestionView Margin="0,10" DataContext="{Binding}" />
+                            </ContentControl>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Grid>
+        </ContentControl>
+    </Grid>
+</UserControl>

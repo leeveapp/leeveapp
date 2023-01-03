@@ -1,0 +1,9 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/Main/MainDataTemplates.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Users/UserDataTemplates.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Questionnaires/QuestionnaireDataTemplates.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Evaluations/EvaluationDataTemplates.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

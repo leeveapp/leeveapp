@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
+        <PackageReference Include="DebitExpress.DialogService" Version="2.1.8" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Leeve.Client\Leeve.Client.csproj" />
+        <ProjectReference Include="..\Leeve.Core\Leeve.Core.csproj" />
+    </ItemGroup>
+
+</Project>

@@ -1,0 +1,81 @@
+﻿syntax = "proto3";
+
+package questionnaire;
+option csharp_namespace = "Leeve.Core";
+
+message QuestionnaireDto {
+  string id = 1;
+  string title = 2;
+  string description = 3;
+  repeated MethodologyDto methodologies = 4;
+  string teacher_id = 5;
+}
+
+message MethodologyDto{
+  string title = 1;
+  string description = 2;
+  repeated QuestionDto questions = 3;
+}
+
+message QuestionDto {
+  string title = 1;
+  repeated AnswerDto answers = 2;
+}
+
+message AnswerDto {
+  string title = 1;
+  float weight = 2;
+  bool selected = 3;
+}
+
+message AddQuestionnaireRequest {
+  string caller_id = 1;
+  QuestionnaireDto questionnaire = 2;
+}
+
+message AddQuestionnaireResponse {
+  QuestionnaireDto questionnaire = 1;
+}
+
+message GetQuestionnaireRequest {
+  string id = 2;
+}
+
+message GetQuestionnaireResponse {
+  QuestionnaireDto questionnaire = 1;
+}
+
+message GetAllQuestionnairesByTeacherIdRequest {
+  string teacher_id = 1;
+}
+
+message GetAllQuestionnairesByTeacherIdResponse {
+  QuestionnaireDto questionnaire = 1;
+}
+
+message UpdateQuestionnaireRequest {
+  string caller_id = 1;
+  QuestionnaireDto questionnaire = 2;
+}
+
+message UpdateQuestionnaireResponse {
+  QuestionnaireDto questionnaire = 1;
+}
+
+message DeleteQuestionnaireRequest {
+  string caller_id = 1;
+  string id = 2;
+  string teacher_id = 3;
+}
+
+message DeleteQuestionnaireResponse {
+  QuestionnaireDto questionnaire = 1;
+}
+
+service QuestionnaireService {
+  rpc Add(AddQuestionnaireRequest) returns (AddQuestionnaireResponse);
+  rpc Get(GetQuestionnaireRequest) returns (GetQuestionnaireResponse);
+  rpc GetAllByTeacherId(GetAllQuestionnairesByTeacherIdRequest) returns (stream GetAllQuestionnairesByTeacherIdResponse);
+  rpc Update(UpdateQuestionnaireRequest) returns (UpdateQuestionnaireResponse);
+  rpc Delete(DeleteQuestionnaireRequest) returns (DeleteQuestionnaireResponse);
+}

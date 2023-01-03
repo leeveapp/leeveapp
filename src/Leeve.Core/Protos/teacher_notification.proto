@@ -1,0 +1,19 @@
+﻿syntax = "proto3";
+
+package teacher_notification;
+option csharp_namespace = "Leeve.Core";
+
+import "teacher.proto";
+
+message TeacherNotificationRequest {
+}
+
+message TeacherNotificationResponse {
+  string caller_id = 1;
+  string action = 2;
+  teacher.TeacherDto teacher =3;
+}
+
+service TeacherNotificationService {
+  rpc Subscribe(TeacherNotificationRequest) returns (stream TeacherNotificationResponse);
+}

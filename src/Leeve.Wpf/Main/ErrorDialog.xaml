@@ -1,0 +1,54 @@
+﻿<ctrl:Window
+    x:Class="Leeve.Wpf.Main.ErrorDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:ctrl="http://debitexpress.com/winfx/xaml/controls"
+    xmlns:attached="http://debitexpress.com/winfx/xaml/attached-properties"
+    mc:Ignorable="d"
+    TextElement.FontSize="13"
+    TextElement.FontFamily="{StaticResource MaterialDesignFont}"
+    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+    Title="Le'eve"
+    Topmost="True"
+    ResizeMode="NoResize"
+    SnapsToDevicePixels="True"
+    SizeToContent="WidthAndHeight"
+    WindowStartupLocation="CenterScreen"
+    attached:WindowElement.ExtendContentToNonClientArea="True"
+    Background="{DynamicResource MaterialDesignPaper}">
+    <Grid
+        Margin="20,37,40,20">
+        <StackPanel
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center">
+            <DockPanel>
+                <materialDesign:PackIcon
+                    DockPanel.Dock="Left"
+                    Kind="CloseCircle"
+                    Foreground="#EF3F2C"
+                    Width="50"
+                    Height="50"
+                    Margin="0,0,10,0" />
+                <StackPanel>
+                    <TextBlock
+                        Margin="0,0,0,10"
+                        FontWeight="Bold"
+                        Text="Unhandled exception has occured!" />
+                    <TextBlock
+                        x:Name="ErrorMessage"
+                        MaxWidth="500"
+                        TextWrapping="Wrap" />
+                </StackPanel>
+            </DockPanel>
+            <Button
+                Click="OnClose"
+                Content="CLOSE"
+                Margin="0,20,0,0"
+                HorizontalAlignment="Right"
+                Style="{StaticResource MaterialDesignFlatButton}" />
+        </StackPanel>
+    </Grid>
+</ctrl:Window>

@@ -1,0 +1,23 @@
+﻿syntax = "proto3";
+
+package teacher_image;
+option csharp_namespace = "Leeve.Core";
+
+message TeacherImageDto {
+  string id = 1;
+  bytes image = 2;
+}
+
+message UpdateTeacherImageRequest {
+  string caller_id = 1;
+  string user_id = 2;
+  TeacherImageDto teacher_image = 3;
+}
+
+message UpdateTeacherImageResponse {
+  TeacherImageDto teacher_image = 2;
+}
+
+service TeacherImageService {
+  rpc UpdateTeacherImage(UpdateTeacherImageRequest) returns (UpdateTeacherImageResponse);
+}

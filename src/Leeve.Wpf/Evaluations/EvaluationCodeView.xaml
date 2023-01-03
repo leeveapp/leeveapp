@@ -1,0 +1,61 @@
+﻿<UserControl
+    x:Class="Leeve.Wpf.Evaluations.EvaluationCodeView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:viewModel="clr-namespace:Leeve.Application.Evaluations;assembly=Leeve.Application"
+    xmlns:dialogs="http://debitexpress.com/winfx/xaml/dialogs"
+    mc:Ignorable="d"
+    d:DataContext="{d:DesignInstance viewModel:EvaluationCodeViewModel}">
+    <UserControl.InputBindings>
+        <KeyBinding
+            Key="Enter"
+            Command="{Binding RequestCommand}" />
+        <KeyBinding
+            Key="Escape"
+            Command="{Binding CancelCommand}" />
+    </UserControl.InputBindings>
+    <Grid>
+        <dialogs:DraggableControl Height="32" VerticalAlignment="Top" />
+        <Grid
+            Width="300"
+            Margin="40,30">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0">
+                <TextBlock
+                    Margin="0,0,0,20"
+                    FontSize="16"
+                    FontWeight="Medium"
+                    TextAlignment="Center"
+                    Text="Enter Evaluation Code" />
+                <TextBox
+                    FontSize="36"
+                    TextAlignment="Center"
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                    Text="{Binding Code, UpdateSourceTrigger=PropertyChanged}" />
+            </StackPanel>
+            <StackPanel
+                Grid.Row="1"
+                Margin="0,40,0,0"
+                Orientation="Horizontal"
+                VerticalAlignment="Bottom"
+                HorizontalAlignment="Right">
+                <Button
+                    Margin="0,0,20,0"
+                    Width="100"
+                    Content="Request"
+                    Command="{Binding RequestCommand}"
+                    Style="{StaticResource MaterialDesignFlatMidBgButton}" />
+                <Button
+                    Width="100"
+                    Content="Cancel"
+                    Command="{Binding CancelCommand}"
+                    Style="{StaticResource MaterialDesignOutlinedButton}" />
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>

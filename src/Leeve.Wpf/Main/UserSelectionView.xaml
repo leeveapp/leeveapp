@@ -1,0 +1,47 @@
+﻿<UserControl
+    x:Class="Leeve.Wpf.Main.UserSelectionView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:viewModel="clr-namespace:Leeve.Application.Main;assembly=Leeve.Application"
+    mc:Ignorable="d"
+    d:DataContext="{d:DesignInstance viewModel:UserSelectionViewModel}">
+    <Grid>
+        <StackPanel
+            Margin="0,20,0,0"
+            Orientation="Horizontal"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Center">
+            <ContentControl
+                Margin="30"
+                Style="{StaticResource SelectionCardStyle}">
+                <DockPanel>
+                    <Button
+                        DockPanel.Dock="Bottom"
+                        Height="40"
+                        Content="Manage"
+                        materialDesign:ButtonAssist.CornerRadius="20"
+                        Command="{Binding OpenTeacherSelectionCommand}"
+                        Style="{StaticResource MaterialDesignFlatMidBgButton}" />
+                    <Image Source="pack://application:,,,/../../assets/images/manage.png" Width="200" />
+                </DockPanel>
+            </ContentControl>
+            <ContentControl
+                Margin="30"
+                Style="{StaticResource SelectionCardStyle}">
+                <DockPanel>
+                    <Button
+                        DockPanel.Dock="Bottom"
+                        Height="40"
+                        Content="Evaluate"
+                        materialDesign:ButtonAssist.CornerRadius="20"
+                        Command="{Binding EvaluateCommand}"
+                        Style="{StaticResource MaterialDesignFlatMidBgButton}" />
+                    <Image Source="pack://application:,,,/../../assets/images/evaluate.png" Width="200" />
+                </DockPanel>
+            </ContentControl>
+        </StackPanel>
+    </Grid>
+</UserControl>

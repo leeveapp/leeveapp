@@ -1,0 +1,103 @@
+﻿syntax = "proto3";
+
+package teacher;
+option csharp_namespace = "Leeve.Core";
+
+message TeacherDto {
+  string id = 1;
+  string first_name = 2;
+  string last_name = 3;
+  string department = 4;
+  string full_name = 5;
+  bytes image = 6;
+}
+
+message CredentialDto {
+  string user_name = 1;
+  string password = 2;
+  string old_password = 3;
+}
+
+message AddTeacherRequest {
+  string caller_id = 1;
+  string admin_id = 2;
+  TeacherDto teacher = 3;
+}
+
+message AddTeacherResponse {
+  TeacherDto teacher = 1;
+}
+
+message GetTeacherRequest {
+  string id = 1;
+}
+
+message GetTeacherResponse {
+  TeacherDto teacher = 1;
+}
+
+message GetTeacherByCredentialsRequest {
+  string  user_name = 1;
+  string  password = 2;
+}
+
+message GetTeacherByCredentialsResponse {
+  TeacherDto teacher = 1;
+}
+
+message GetAllTeachersRequest {
+}
+
+message GetAllTeachersResponse {
+  TeacherDto teacher = 1;
+}
+
+message UpdateTeacherRequest {
+  string caller_id = 1;
+  TeacherDto teacher = 2;
+  string password = 3;
+}
+
+message UpdateTeacherResponse {
+  TeacherDto teacher = 1;
+}
+
+message UpdateTeacherByAdminRequest {
+  string caller_id = 1;
+  TeacherDto teacher = 2;
+  string admin_id = 3;
+}
+
+message UpdateTeacherByAdminResponse {
+  TeacherDto teacher = 1;
+}
+
+message DeleteTeacherRequest {
+  string caller_id = 1;
+  string admin_id = 2;
+  string teacher_id = 3;
+}
+
+message DeleteTeacherResponse {
+  TeacherDto teacher = 1;
+}
+
+message UpdateTeacherCredentialsRequest {
+  string teacher_id = 1;
+  CredentialDto credential = 2;
+}
+
+message UpdateTeacherCredentialsResponse {
+  TeacherDto teacher = 1;
+}
+
+service TeacherService {
+  rpc Add(AddTeacherRequest) returns (AddTeacherResponse);
+  rpc Get(GetTeacherRequest) returns (GetTeacherResponse);
+  rpc GetByCredentials(GetTeacherByCredentialsRequest) returns (GetTeacherByCredentialsResponse);
+  rpc GetAll(GetAllTeachersRequest) returns (stream GetAllTeachersResponse);
+  rpc Update(UpdateTeacherRequest) returns (UpdateTeacherResponse);
+  rpc UpdateByAdmin(UpdateTeacherByAdminRequest) returns (UpdateTeacherByAdminResponse);
+  rpc UpdateCredentials(UpdateTeacherCredentialsRequest) returns (UpdateTeacherCredentialsResponse);
+  rpc Delete(DeleteTeacherRequest) returns (DeleteTeacherResponse);
+}

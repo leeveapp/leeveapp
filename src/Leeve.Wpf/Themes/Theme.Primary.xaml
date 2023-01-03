@@ -1,0 +1,53 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:po="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options">
+    <Color
+        x:Key="PrimaryHueLightColor">
+        #42789F
+    </Color>
+    <Color
+        x:Key="PrimaryHueMidColor">
+        #004C70
+    </Color>
+    <Color
+        x:Key="PrimaryHueDarkColor">
+        #002444
+    </Color>
+    <Color
+        x:Key="PrimaryLightForegroundColor">
+        #FFEBE8
+    </Color>
+    <Color
+        x:Key="PrimaryDarkForegroundColor">
+        #050000
+    </Color>
+    <SolidColorBrush
+        x:Key="LightBrush"
+        Color="#FFEBE8"
+        po:Freeze="True" />
+    <SolidColorBrush
+        x:Key="PrimaryHueLightBrush"
+        Color="#42789F"
+        po:Freeze="True" />
+    <SolidColorBrush
+        x:Key="PrimaryHueMidBrush"
+        Color="#004C70"
+        po:Freeze="True" />
+    <SolidColorBrush
+        x:Key="PrimaryHueDarkBrush"
+        Color="#002444"
+        po:Freeze="True" />
+    <SolidColorBrush
+        x:Key="PrimaryHueDarkForegroundBrush"
+        Color="#FFEBE8"
+        po:Freeze="True" />
+    <SolidColorBrush
+        x:Key="PrimaryHueMidForegroundBrush"
+        Color="#FFEBE8"
+        po:Freeze="True" />
+    <SolidColorBrush
+        x:Key="PrimaryHueLightForegroundBrush"
+        Color="#050000"
+        po:Freeze="True" />
+</ResourceDictionary>

@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package admin;
+option csharp_namespace = "Leeve.Core";
+
+message AdminDto {
+  string  id = 1;
+  string  user_name = 2;
+  string  password = 3;
+}
+
+message GetByCredentialsRequest {
+  string  user_name = 1;
+  string  password = 2;
+}
+
+message GetByCredentialsResponse {
+  AdminDto  admin = 1;
+}
+
+message UpdateAdminRequest {
+  AdminDto  admin = 1;
+  string old_password = 2;
+}
+
+message UpdateAdminResponse {
+  AdminDto  admin = 1;
+}
+
+service AdminService {
+  rpc GetByCredentials(GetByCredentialsRequest) returns (GetByCredentialsResponse);
+  rpc Update(UpdateAdminRequest) returns (UpdateAdminResponse);
+}

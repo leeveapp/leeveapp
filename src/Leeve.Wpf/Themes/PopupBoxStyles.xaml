@@ -1,0 +1,103 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes">
+    <Style x:Key="ToggleButtonStyle" TargetType="{x:Type ToggleButton}">
+        <Setter Property="Padding" Value="8,0" />
+        <Setter Property="Cursor" Value="Arrow" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ToggleButton}">
+                    <Grid>
+                        <Border
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            Background="{TemplateBinding Background}">
+                            <ContentPresenter
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center" />
+                        </Border>
+                        <material:Ripple
+                            Focusable="True"
+                            ClipToBounds="True"
+                            Padding="{TemplateBinding Padding}"
+                            Content="{TemplateBinding Content}"
+                            Feedback="{DynamicResource MaterialDesignBody}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter Property="Background" Value="{DynamicResource MaterialDesignDivider}" />
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="{DynamicResource MaterialDesignDivider}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="MaterialDesignPopupBox" TargetType="{x:Type material:PopupBox}">
+        <Setter Property="Focusable" Value="True" />
+        <Setter Property="PlacementMode" Value="BottomAndAlignRightEdges" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="PopupUniformCornerRadius" Value="5" />
+        <Setter Property="TextElement.FontWeight" Value="Normal" />
+        <Setter Property="material:ElevationAssist.Elevation" Value="Dp2" />
+        <Setter Property="material:RippleAssist.Feedback" Value="{DynamicResource MaterialDesignFlatButtonRipple}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type material:PopupBox}">
+                    <Grid>
+                        <ToggleButton
+                            x:Name="PART_Toggle"
+                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                            Content="{TemplateBinding ToggleContent}"
+                            ContentTemplate="{TemplateBinding ToggleContentTemplate}"
+                            IsChecked="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IsPopupOpen, Mode=TwoWay}"
+                            IsTabStop="{TemplateBinding IsTabStop}"
+                            Style="{StaticResource ToggleButtonStyle}"
+                            TabIndex="{TemplateBinding TabIndex}" />
+                        <material:PopupEx
+                            x:Name="PART_Popup"
+                            MaxWidth="500"
+                            MinWidth="350"
+                            Placement="Custom"
+                            PopupAnimation="Fade"
+                            AllowsTransparency="True"
+                            PlacementTarget="{Binding ElementName=PART_Toggle}"
+                            CustomPopupPlacementCallback="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=PopupPlacementMethod}"
+                            HorizontalOffset="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=PopupHorizontalOffset}"
+                            IsOpen="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IsPopupOpen, Mode=TwoWay}"
+                            VerticalOffset="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=PopupVerticalOffset}">
+                            <Grid Margin="5,0">
+                                <material:Card
+                                    Margin="5"
+                                    RenderOptions.ClearTypeHint="Enabled"
+                                    UniformCornerRadius="{TemplateBinding PopupUniformCornerRadius}"
+                                    material:ElevationAssist.Elevation="{TemplateBinding material:ElevationAssist.Elevation}" />
+                                <ContentControl
+                                    Margin="5"
+                                    Padding="{TemplateBinding Padding}"
+                                    Content="{TemplateBinding PopupContent}"
+                                    ContentTemplate="{TemplateBinding PopupContentTemplate}"
+                                    Foreground="{DynamicResource MaterialDesignBody}" />
+                            </Grid>
+                        </material:PopupEx>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Opacity" Value="0.38" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

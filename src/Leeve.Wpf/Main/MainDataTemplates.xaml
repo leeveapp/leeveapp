@@ -1,0 +1,13 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:viewModel="clr-namespace:Leeve.Application.Main;assembly=Leeve.Application"
+    xmlns:view="clr-namespace:Leeve.Wpf.Main">
+    <DataTemplate
+        DataType="{x:Type viewModel:UserSelectionViewModel}">
+        <ContentControl
+            Style="{StaticResource ExpandIn}">
+            <view:UserSelectionView />
+        </ContentControl>
+    </DataTemplate>
+</ResourceDictionary>

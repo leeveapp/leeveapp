@@ -1,0 +1,18 @@
+﻿syntax = "proto3";
+
+package evaluation_process_notification;
+option csharp_namespace = "Leeve.Core";
+
+message EvaluationProcessNotificationRequest {
+}
+
+message EvaluationProcessNotificationResponse {
+  string caller_id = 1;
+  string action = 2;
+  string evaluation_id = 3;
+  string evaluation_code = 4;
+}
+
+service EvaluationProcessNotificationService {
+  rpc Subscribe(EvaluationProcessNotificationRequest) returns (stream EvaluationProcessNotificationResponse);
+}
